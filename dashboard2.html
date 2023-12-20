@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>External Dashboard</title>
+</head>
+<body>
+
+<canvas id="myChart" width="400" height="200"></canvas>
+
+<script>
+  // Función para actualizar el dashboard con Chart.js
+  function updateDashboard(scrapedData) {
+    // Reemplazar con tu código real para actualizar el gráfico
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['First Table', 'Second Table'],
+        datasets: [{
+          label: 'Data Count',
+          data: scrapedData,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  // Función para obtener datos almacenados localmente
+  function getLocalStorageData() {
+    const storedData = localStorage.getItem('scrapedData');
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      updateDashboard(parsedData);
+    }
+  }
+
+  // Obtener datos almacenados localmente al cargar la página
+  document.addEventListener('DOMContentLoaded', getLocalStorageData);
+</script>
+
+</body>
+</html>
